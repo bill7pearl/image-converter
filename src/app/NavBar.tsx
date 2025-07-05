@@ -11,8 +11,6 @@ export default function NavBar() {
       </div>
       <ul className="flex items-center gap-6 text-sm font-medium">
         <li><a href="#features" className="hover:text-blue-400 transition">Features</a></li>
-        <li><a href="#pricing" className="hover:text-blue-400 transition">Pricing</a></li>
-        <li><a href="#faq" className="hover:text-blue-400 transition">FAQ</a></li>
         <li><a href="#contact" className="hover:text-blue-400 transition">Contact</a></li>
       </ul>
     </nav>
