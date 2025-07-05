@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import React from "react";
 import NavBar from './NavBar';
+import { Analytics } from "@vercel/analytics/next"
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
           MVP Demo &copy; 2025 &mdash; Made with Next.js & Tailwind CSS
         </footer>
         <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
+        <Analytics />
       </body>
     </html>
   );
