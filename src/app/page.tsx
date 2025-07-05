@@ -202,8 +202,8 @@ export default function Home() {
           {/* Contact Info */}
           <div className="space-y-6">
             <div>
-              <h3 className="text-xl font-semibold mb-4 text-gray-200">Let's Connect</h3>
-              <p className="text-gray-400 mb-6">Have questions, suggestions, or want to collaborate? We'd love to hear from you!</p>
+              <h3 className="text-xl font-semibold mb-4 text-gray-200">Let&apos;s Connect</h3>
+              <p className="text-gray-400 mb-6">Have questions, suggestions, or want to collaborate? We&apos;d love to hear from you!</p>
             </div>
             
             <div className="space-y-4">
@@ -258,7 +258,7 @@ export default function Home() {
                   );
                   setFormStatus('success');
                   formRef.current?.reset();
-                } catch (err) {
+                } catch {
                   setFormStatus('error');
                 }
               }}
