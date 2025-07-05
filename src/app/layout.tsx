@@ -36,7 +36,7 @@ export default function RootLayout({
           {children}
         </main>
         <footer className="w-full border-t border-zinc-800 bg-zinc-900/80 text-center py-4 text-xs text-gray-400 mt-8">
-          MVP Demo &copy; 2024 &mdash; Made with Next.js & Tailwind CSS
+          MVP Demo &copy; 2025 &mdash; Made with Next.js & Tailwind CSS
         </footer>
         <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick pauseOnFocusLoss draggable pauseOnHover />
       </body>
