@@ -1,9 +1,12 @@
 "use client";
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ImageConverter from './ImageConverter';
+import emailjs from 'emailjs-com';
 
 export default function Home() {
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>("idle");
+  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     // Create intersection observer for scroll-triggered animations
@@ -210,27 +213,29 @@ export default function Home() {
                 </div>
                 <div>
                   <div className="font-medium text-gray-200">Email</div>
-                  <a href="mailto:hello@imgconverter.com" className="text-blue-400 hover:text-blue-300 transition">hello@imgconverter.com</a>
+                  <a href="billel.chami.dev@gmail.com" className="text-blue-400 hover:text-blue-300 transition">billel.chami.dev@gmail.com</a>
                 </div>
               </div>
               
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-purple-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-purple-400">💬</span>
+                  {/* LinkedIn SVG icon */}
+                  <svg className="w-6 h-6 text-purple-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm15.5 10.28h-3v-4.5c0-1.08-.02-2.47-1.5-2.47-1.5 0-1.73 1.17-1.73 2.39v4.58h-3v-9h2.89v1.23h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v4.72z"/></svg>
                 </div>
                 <div>
-                  <div className="font-medium text-gray-200">Discord</div>
-                  <a href="#" className="text-purple-400 hover:text-purple-300 transition">Join our community</a>
+                  <div className="font-medium text-gray-200">LinkedIn</div>
+                  <a href="https://www.linkedin.com/in/billal-chami/" target="_blank" rel="noopener noreferrer" className="text-purple-400 hover:text-purple-300 transition">Connect on LinkedIn</a>
                 </div>
               </div>
               
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-pink-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-pink-400">🐙</span>
+                  {/* GitHub SVG icon */}
+                  <svg className="w-6 h-6 text-pink-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0.297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387 0.6 0.113 0.82-0.258 0.82-0.577 0-0.285-0.01-1.04-0.015-2.04-3.338 0.724-4.042-1.61-4.042-1.61-0.546-1.387-1.333-1.756-1.333-1.756-1.089-0.745 0.084-0.729 0.084-0.729 1.205 0.084 1.84 1.236 1.84 1.236 1.07 1.834 2.809 1.304 3.495 0.997 0.108-0.775 0.418-1.54 0.762-1.605-2.665-0.305-5.466-1.334-5.466-5.931 0-1.31 0.469-2.381 1.236-3.221-0.124-0.303-0.535-1.523 0.117-3.176 0 0 1.008-0.322 3.301 1.23 0.957-0.266 1.983-0.399 3.003-0.404 1.02 0.005 2.047 0.138 3.006 0.404 2.291-1.553 3.297-1.23 3.297-1.23 0.653 1.653 0.242 2.873 0.118 3.176 0.77 0.84 1.235 1.911 1.235 3.221 0 4.609-2.803 5.624-5.475 5.921 0.43 0.372 0.823 1.102 0.823 2.222 0 1.606-0.014 2.898-0.014 3.293 0 0.322 0.216 0.694 0.825 0.576 4.765-1.589 8.199-6.085 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                 </div>
                 <div>
                   <div className="font-medium text-gray-200">GitHub</div>
-                  <a href="#" className="text-pink-400 hover:text-pink-300 transition">View source code</a>
+                  <a href="https://github.com/bill7pearl/image-converter" target="_blank" rel="noopener noreferrer" className="text-pink-400 hover:text-pink-300 transition">View source code</a>
                 </div>
               </div>
             </div>
@@ -238,14 +243,35 @@ export default function Home() {
 
           {/* Contact Form */}
           <div>
-            <form className="space-y-4">
+            <form 
+              ref={formRef}
+              className="space-y-4"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setFormStatus('sending');
+                try {
+                  await emailjs.sendForm(
+                    'service_iigpica', // <-- Replace with your EmailJS service ID
+                    'template_vdktank', // <-- Replace with your EmailJS template ID
+                    formRef.current!,
+                    'dVdFc5R-_JsiC4aNE' // <-- Replace with your EmailJS public key
+                  );
+                  setFormStatus('success');
+                  formRef.current?.reset();
+                } catch (err) {
+                  setFormStatus('error');
+                }
+              }}
+            >
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">Name</label>
                 <input
                   type="text"
                   id="name"
+                  name="name"
                   className="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                   placeholder="Your name"
+                  required
                 />
               </div>
               
@@ -254,8 +280,10 @@ export default function Home() {
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   className="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
                   placeholder="your@email.com"
+                  required
                 />
               </div>
               
@@ -263,18 +291,27 @@ export default function Home() {
                 <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">Message</label>
                 <textarea
                   id="message"
+                  name="message"
                   rows={4}
                   className="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition resize-none"
                   placeholder="Tell us what's on your mind..."
+                  required
                 ></textarea>
               </div>
               
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105"
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 transform hover:scale-105 disabled:opacity-60"
+                disabled={formStatus === 'sending'}
               >
-                Send Message
+                {formStatus === 'sending' ? 'Sending...' : 'Send Message'}
               </button>
+              {formStatus === 'success' && (
+                <div className="mt-2 text-green-400 text-center">Message sent successfully!</div>
+              )}
+              {formStatus === 'error' && (
+                <div className="mt-2 text-red-400 text-center">Failed to send message. Please try again.</div>
+              )}
             </form>
           </div>
         </div>

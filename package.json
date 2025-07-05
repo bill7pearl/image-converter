@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "browser-image-compression": "^2.0.2",
+    "emailjs-com": "^3.2.0",
     "jszip": "^3.10.1",
     "next": "15.3.5",
     "react": "^19.0.0",
